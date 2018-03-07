@@ -281,7 +281,7 @@ class Interface(BasicInterface):
 
         # Information about brackets
 
-        self.handle_bracket = BracketHandler(self)
+        # self.handle_bracket = BracketHandler(self)
 
         self.closing_bracket_types = [")", "]", "}"]
 
@@ -624,67 +624,7 @@ class Interface(BasicInterface):
                     
                     char = event.char
 
-                if char in self.closing_bracket_types:
-
-                    # Work out if we need to add this bracket
-
-                    text = self.text.readlines()
-
-                    # "insert" the bracket in the text to simulate actually adding it
-
-                    try:
-
-                        text[row] = text[row][:col] + char + text[row][col:]
-
-                    except IndexError as e:
-
-                        stdout("IndexError", e)
-                        stdout(row, col, text)                    
-
-                    # If we need to add a closing bracket, just insert
-
-                    if self.handle_bracket.is_inserting_bracket(text, row, col, event.char):
-
-                        messages.append( MSG_INSERT(self.text.marker.id, char, row, col) )
-
-                    # else, move to the right one space
-
-                    else:
-
-                        new_row, new_col = self.Right(row, col)
-
-                        messages.append( MSG_SET_MARK(self.text.marker.id, new_row, new_col) )
-
-                    # Work out where the appropriate enclosing bracket is and send a message to highlight
-
-                    loc = self.handle_bracket.find_starting_bracket(text, row, col - 1, event.char)
-
-                    if loc is not None:
-
-                        row1, col1 = loc
-                        row2, col2 = row, col
-
-                        messages.append( MSG_BRACKET(self.text.marker.id, row1, col1, row2, col2) )
-
-                # Add any other character
-
-                else:
-
-                    messages.append( MSG_INSERT(self.text.marker.id, char, row, col) )
-
-                    # If the char is a bracket, add a closing bracket
-
-                    if char in self.handle_bracket.left_brackets_all:
-
-                        # Get the next char
-
-                        # next_char = self.text.get(self.text.marker.mark)
-
-                        #if next_char not in self.handle_bracket.right_brackets_all:
-
-                        messages.append( MSG_INSERT(self.text.marker.id, self.handle_bracket.left_brackets_all[char], row, col + 1))
-
-                        messages.append( MSG_SET_MARK(self.text.marker.id, row, col + 1) )
+                messages.append( MSG_INSERT(self.text.marker.id, char, row, col) )
 
         # Push messages
 
