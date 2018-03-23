@@ -4,6 +4,7 @@ __pycache__/*
 setup.py
 dist/*
 build/*
+Output/*
 
 # Create logs
 logs/*

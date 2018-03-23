@@ -113,7 +113,10 @@ global COLOURS
 
 # to avoid putting CONF_DIR into the namespace
 if not os.path.exists(os.path.join(SRC_DIR, "conf")):
-    os.makedirs(os.path.join(SRC_DIR, "conf"))
+    try:
+        os.makedirs(os.path.join(SRC_DIR, "conf"))
+    except:
+        pass
 
 COLOUR_INFO_FILE = os.path.join(SRC_DIR, "conf/colours.txt")
 
