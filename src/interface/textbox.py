@@ -5,7 +5,7 @@ from ..config import *
 from ..message import *
 from ..interpreter import *
 from ..ot.client import Client as OTClient
-from ..ot.text_operation import TextOperation
+from ..ot.text_operation import TextOperation, IncompatibleOperationError
 
 from .peer import *
 from .constraints import _constraint
@@ -133,15 +133,23 @@ class ThreadSafeText(Text, OTClient):
                 print("Document length mismatch, please restart the Troop server.")
                 return
 
-            # If other peers have added/deleted chars - transform the undo stack
+            # If other peers have added/deleted chars - transform the undo stack for the local user
 
             if self.active_peer != self.marker:
 
                 self.transform_undo_stacks(operation)
 
             # Apply op
-            self.set_text(operation(self.read()))
-            self.insert_peer_id(self.active_peer, operation.ops)
+
+            try:
+
+                self.set_text(operation(self.read()))
+
+                self.insert_peer_id(self.active_peer, operation.ops)
+
+            except IncompatibleOperationError:
+
+                pass # experimental
 
         return
 
