@@ -13,7 +13,7 @@ For details on what Troop actually is and what you need to have installed, pleas
 Once you have the basic FoxDot setup up and running, complete the Secure Troop specifics below :: 
 
 1. Make sure that FoxDot is in your python path (not pythonX).
-( verify this by running the following command python -c "import FoxDot; print(FoxDot.__file__) )
+( verify this by running the following command python -c "import FoxDot; print(FoxDot.\__file\__) )
 2. Install Docker, and make sure the Docker client is running.
 3. Start SuperCollider with FoxDot ( using FoxDot.start command)
 
