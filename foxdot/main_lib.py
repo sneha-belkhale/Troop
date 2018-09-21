@@ -176,7 +176,8 @@ def get_input():
     return "\n".join(text)
 
 def handle_string(text):
-    execute(text, verbose=False, verbose_error=True)
+    response = execute(text, verbose=False, verbose_error=True)
+    return response
 
 def handle_stdin():
     """ When FoxDot is run with the --pipe added, this function

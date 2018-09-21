@@ -144,7 +144,8 @@ class Interpreter(DummyInterpreter):
         import tempfile
 
         self.f_out = tempfile.TemporaryFile("w+", 1) # buffering = 1
-        self.is_alive = True
+        self.is_alive = False
+        self.alive = False
 
     def start(self):
         # """ Opens the process with the interpreter language """
@@ -155,10 +156,10 @@ class Interpreter(DummyInterpreter):
         """ Opens a socket for FoxDot only!! """
         self.mySocket = socket.socket()
         self.mySocket.connect(('localhost', 54321))
-
+        self.alive = True;
         self.stdout_thread = threading.Thread(target=self.stdout)
         self.stdout_thread.start()
-
+        self.is_alive = True;
         return self
 
     def find_keyword(self, string):
@@ -180,6 +181,14 @@ class Interpreter(DummyInterpreter):
         return
 
     def stdout(self, text=""):
+        while True:
+            if self.alive:
+                data = self.mySocket.recv(1024).decode()
+                if not data:
+                    break
+                print(data)
+
+
         # """ Continually reads the stdout from the self.lang process """
         # while self.is_alive:
         #     if self.lang.poll():

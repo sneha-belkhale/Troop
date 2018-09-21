@@ -36,12 +36,14 @@ if sys.argv[-1] == "--socket":
     conn, addr = mySocket.accept()
     print ("Connection from: " + str(addr))
     while True:
-            data = conn.recv(1024).decode()
-            if not data:
-                    break
-            print ("from connected  user: " + str(data))
-            data = str(data)
-            handle_string(data);
+        data = conn.recv(1024).decode()
+        if not data:
+            break
+        print ("from connected  user: " + str(data))
+        data = str(data)
+        response = handle_string(data);
+        print("sending: " + response)
+        conn.send(response.encode())
     conn.close()
 
 else:
