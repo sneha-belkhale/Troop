@@ -1,12 +1,12 @@
-# Secure Troop Fork 
+# Isolated Troop Environment Fork 
 
 ## Real-time collaborative [& secure] live coding
 
-Secure Troop is a fork off of [Troop](https://github.com/Qirky/Troop/), which includes the real-time collaborative functionality of Troop, but in a secure environment. Essentially, it runs all python executable commands from FoxDot in a docker container, keeping the host machine safe from any malicious commands executed by other collaborators. The container will then send OSC messages to SuperCollider through the established localhost connection. 
+This is a fork off of [Troop](https://github.com/Qirky/Troop/), which includes the real-time collaborative functionality of Troop, but in an isolated docker environment. Essentially, it runs all python executable commands from FoxDot in a docker container, keeping the host machine safe(r) from any malicious commands executed by other collaborators. The container will then send OSC messages to SuperCollider through the established localhost connection. 
 
 This was setup so that we can run a permanent server for anyone to join and jam together :) 
 
-Currently Secure Troop only works with FoxDot. 
+Currently Isolated Troop only works with FoxDot. 
 
 ## Getting Started 
 
